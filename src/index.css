@@ -1,13 +1,297 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: #e9eef7;
+  color: #12365d;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.mobile-shell {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f7f9fd;
+  box-shadow: 0 0 40px rgba(20, 59, 105, 0.12);
+}
+
+.hero-panel {
+  min-height: 360px;
+  padding: 13px 28px 28px;
+  background: linear-gradient(145deg, #115395 0%, #1678b8 100%);
+  border-radius: 0 0 28px 28px;
+}
+
+.status-row,
+.topbar,
+.greeting-row,
+.section-heading,
+.account-heading,
+.account-actions,
+.status-icons,
+.topbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.status-row,
+.topbar,
+.section-heading,
+.account-heading,
+.account-actions {
+  justify-content: space-between;
+}
+
+.status-time {
+  width: 49px;
+  height: 11px;
+}
+.status-icons {
+  gap: 10px;
+}
+.network-icon {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 10px;
+  font-weight: 700;
+}
+.signal-icon {
+  width: 16px;
+  height: 11px;
+  border-bottom: 3px dotted #fff;
+}
+.battery-icon {
+  width: 19px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.topbar {
+  margin-top: 24px;
+}
+.brand-placeholder {
+  width: 105px;
+  height: 28px;
+  border-radius: 7px;
+}
+.topbar-actions {
+  gap: 15px;
+}
+.action-circle {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+}
+.action-circle-large {
+  width: 40px;
+  height: 40px;
+}
+
+.greeting-row {
+  gap: 9px;
+  margin: 25px 0 16px;
+}
+.greeting-label {
+  width: 49px;
+  height: 13px;
+}
+.greeting-name {
+  width: 122px;
+  height: 14px;
+}
+
+.account-card {
+  overflow: hidden;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(17, 64, 111, 0.12);
+}
+.account-heading {
+  padding: 16px 21px 10px;
+  background: linear-gradient(110deg, #53bdd0, #57c4bb);
+}
+.account-pill {
+  width: 90px;
+  height: 28px;
+  border-radius: 18px;
+}
+.account-number {
+  width: 104px;
+  height: 12px;
+}
+.balance-copy {
+  padding: 18px 21px 20px;
+}
+.balance-label {
+  width: 82px;
+  height: 13px;
+}
+.balance-amount {
+  width: 46px;
+  height: 25px;
+  margin-top: 10px;
+}
+.account-actions {
+  padding: 15px 21px;
+  border-top: 1px solid #e4e8ee;
+}
+.account-action {
+  width: 118px;
+  height: 16px;
+}
+.account-action-short {
+  width: 92px;
+}
+
+.content-panel {
+  padding: 28px 0 116px;
+}
+.promo-strip {
+  display: block;
+  width: calc(100% - 12px);
+  height: 94px;
+  margin: 0 6px 31px;
+  border-radius: 23px;
+}
+.section-heading {
+  padding: 0 29px;
+}
+.heading-placeholder {
+  width: 126px;
+  height: 21px;
+}
+.settings-placeholder {
+  width: 58px;
+  height: 15px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 74px);
+  gap: 23px 14px;
+  width: max-content;
+  padding: 31px 29px 0;
+}
+.menu-item {
+  position: relative;
+  display: flex;
+  width: 74px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.menu-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+.menu-label {
+  width: 60px;
+  height: 11px;
+}
+.new-badge {
+  position: absolute;
+  top: 43px;
+  right: 3px;
+  width: 18px;
+  height: 14px;
+  border-radius: 6px;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 29px 0 24px;
+}
+.carousel-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b8c7d9;
+}
+.carousel-dots .active {
+  width: 31px;
+  border-radius: 8px;
+  background: #37b1d0;
+}
+.feature-card {
+  display: block;
+  width: calc(100% - 56px);
+  height: 160px;
+  margin: 0 28px;
+  border-radius: 18px;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: min(100%, 480px);
+  padding: 14px 14px 12px;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  border-radius: 25px 25px 0 0;
+  background: #1265b7;
+  box-shadow: 0 -7px 20px rgba(13, 71, 126, 0.16);
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.nav-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+}
+.qris-icon {
+  width: 41px;
+  height: 41px;
+  margin-top: -25px;
+  border: 8px solid #1265b7;
+  border-radius: 50%;
+}
+.nav-label {
+  width: 50px;
+  height: 10px;
+}
+.skeleton-line {
+  display: block;
+  background: rgba(226, 235, 245, 0.48);
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+.account-card .skeleton-line,
+.content-panel .skeleton-line {
+  background: #e5edf5;
+}
+.nav-item.selected .skeleton-line {
+  background: rgba(255, 255, 255, 0.86);
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 481px) {
+  .mobile-shell {
+    min-height: 900px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none;
+  }
 }
