@@ -1,18 +1,33 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const AI_RESPONSE = "Pengeluaran anda bulan lalu Rp 500.000.";
+const AI_RESPONSE = "Total pengeluaran anda bulan lalu Rp 1.000.000.";
+const AI_RESPONSE_2 = "Total pengeluaran anda 2 bulan lalu Rp 750.000.";
+const AI_RESPONSE_3 = "Pengeluaran anda bulan lalu lebih banyak Rp 250.000 dibandingkan bulan sebelumnya.";
 
-const spendingCategories = [
-  { emoji: "💸", label: "Account Transfer", value: "Rp 150.000" },
-  { emoji: "🍽️", label: "Food and Beverage", value: "Rp 300.000" },
-  { emoji: "🛍️", label: "Shopping", value: "Rp 50.000" },
+type Detail = {
+  emoji: string;
+  label: string;
+  value: string;
+};
+
+const spendingCategories: Detail[] = [
+  { emoji: "💸", label: "Account Transfer", value: "Rp 250.000" },
+  { emoji: "🍽️", label: "Food and Beverage", value: "Rp 250.000" },
+  { emoji: "🛍️", label: "Shopping", value: "Rp 500.000" },
+];
+
+const spendingCategories2: Detail[] = [
+  { emoji: "💸", label: "Account Transfer", value: "Rp 250.000" },
+  { emoji: "🍽️", label: "Food and Beverage", value: "Rp 250.000" },
+  { emoji: "🛍️", label: "Shopping", value: "Rp 250.000" },
 ];
 
 type Message = {
   id: number;
   text: string;
   sender: "user" | "ai";
+  detail: Detail[];
 };
 
 const AICommand = () => {
@@ -37,17 +52,33 @@ const AICommand = () => {
       id: nextMessageId.current++,
       text: userText,
       sender: "user",
+      detail: [],
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
       text: AI_RESPONSE,
       sender: "ai",
+      detail: spendingCategories,
+    };
+    const aiMessage2: Message = {
+      id: nextMessageId.current++,
+      text: AI_RESPONSE_2,
+      sender: "ai",
+      detail: spendingCategories2,
+    };
+    const aiMessage3: Message = {
+      id: nextMessageId.current++,
+      text: AI_RESPONSE_3,
+      sender: "ai",
+      detail: [],
     };
 
     setMessages((currentMessages) => [
       ...currentMessages,
       userMessage,
       aiMessage,
+      aiMessage2,
+      aiMessage3,
     ]);
   };
 
@@ -105,7 +136,7 @@ const AICommand = () => {
                     <p>{message.text}</p>
                     {message.sender === "ai" && (
                       <div className="spending-list">
-                        {spendingCategories.map((category) => (
+                        {message.detail.map((category) => (
                           <div className="spending-item" key={category.label}>
                             <span className="spending-emoji" aria-hidden="true">
                               {category.emoji}
@@ -120,15 +151,23 @@ const AICommand = () => {
                         ))}
                       </div>
                     )}
-                    <div style={{ marginTop: "7px", textAlign: "right", fontSize: "14px"}}>
-                      Lihat lebih{" "}
-                      <span
-                        style={{ fontSize: "10px", marginLeft: "4px" }}
-                        aria-hidden="true"
+                    {message.sender === "ai" && message.detail.length > 0 && (
+                      <div
+                        style={{
+                          marginTop: "7px",
+                          textAlign: "right",
+                          fontSize: "14px",
+                        }}
                       >
-                        &#x25BC;
-                      </span>
-                    </div>
+                        Lihat lebih{" "}
+                        <span
+                          style={{ fontSize: "10px", marginLeft: "4px" }}
+                          aria-hidden="true"
+                        >
+                          &#x25BC;
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

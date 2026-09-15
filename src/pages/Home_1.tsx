@@ -31,15 +31,6 @@ const Home = () => {
   return (
     <main className="mobile-shell">
       <section className="hero-panel">
-        <div className="status-row">
-          <SkeletonLine className="status-time" />
-          <div className="status-icons" aria-hidden="true">
-            <span className="signal-icon" />
-            <span className="network-icon">4G</span>
-            <span className="battery-icon" />
-          </div>
-        </div>
-
         <header className="topbar">
           <SkeletonLine className="brand-placeholder" />
           <div className="topbar-actions" aria-hidden="true">

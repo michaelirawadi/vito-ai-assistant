@@ -24,7 +24,7 @@ const AICommand = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Berikan mutasi rekening bulan lalu?");
+      addConversation("Berikan pengeluaran bulan ini?");
       setIsListening(false);
     }, 5000);
 
@@ -119,21 +119,23 @@ const AICommand = () => {
                         ))}
                       </div>
                     )}
-                    <div
-                      style={{
-                        marginTop: "7px",
-                        textAlign: "right",
-                        fontSize: "14px",
-                      }}
-                    >
-                      Lihat lebih{" "}
-                      <span
-                        style={{ fontSize: "10px", marginLeft: "4px" }}
-                        aria-hidden="true"
+                    {message.sender === "ai" && (
+                      <div
+                        style={{
+                          marginTop: "7px",
+                          textAlign: "right",
+                          fontSize: "14px",
+                        }}
                       >
-                        &#x25BC;
-                      </span>
-                    </div>
+                        Lihat lebih{" "}
+                        <span
+                          style={{ fontSize: "10px", marginLeft: "4px" }}
+                          aria-hidden="true"
+                        >
+                          &#x25BC;
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
