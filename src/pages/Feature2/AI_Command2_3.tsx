@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const AI_RESPONSE = "Rekomendasi deposito:";
+const AI_RESPONSE = "Rekomendasi paket data:";
 
 const depositProducts = [
   { emoji: "🟥", title: "EMPATI 30GB", price: "Rp 100.000" },
