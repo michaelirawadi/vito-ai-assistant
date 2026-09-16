@@ -273,7 +273,7 @@
 
 .message-bubble {
   display: flex;
-  max-width: 78%;
+  max-width: 90%;
   align-items: center;
   gap: 9px;
   padding: 12px 15px;
