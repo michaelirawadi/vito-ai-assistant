@@ -1,21 +1,30 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+// @ts-expect-error CSS is loaded by the bundler and has no TypeScript declaration.
+import "./AI_Command.css";
 
-const AI_RESPONSE = "Rekomendasi deposito:";
+const AI_RESPONSE = "Baik, saya catat keluhannya. Untuk mempercepat proses, apajah ada bukti transaksi?";
 
-const depositProducts = [
-  { emoji: "🟥", title: "EMPATI 30GB", price: "Rp 100.000" },
-  { emoji: "⬜", title: "Teman Pintar 30GB", price: "Rp 150.000" },
-  { emoji: "🟦", title: "XY 30GB", price: "Rp 200.000" },
-];
+type Detail = {
+  emoji: string;
+  label: string;
+  value: string;
+};
 
 type Message = {
   id: number;
   text: string;
   sender: "user" | "ai";
+  detail: Detail[];
 };
 
-const AICommand2_3 = () => {
+const transaction: Detail[] = [
+  { emoji: "💸", label: "Nama Rekening", value: "Budi" },
+  { emoji: "🍽️", label: "Nomor Rekening", value: "1234567890" },
+  { emoji: "🛍️", label: "Nominal", value: "Rp 100.000" },
+];
+
+const AICommand4_1 = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isListening, setIsListening] = useState(false);
@@ -26,7 +35,9 @@ const AICommand2_3 = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Ada produk deposito?");
+      addConversation(
+        "Saya transaksi QRIS di toko Indomerit jam 10 tadi. Saldo terpotong 75.000 tapi merchant bilang gagal.",
+      );
       setIsListening(false);
     }, 5000);
 
@@ -38,11 +49,13 @@ const AICommand2_3 = () => {
       id: nextMessageId.current++,
       text: userText,
       sender: "user",
+      detail: [],
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
       text: AI_RESPONSE,
       sender: "ai",
+      detail: transaction,
     };
 
     setMessages((currentMessages) => [
@@ -105,23 +118,31 @@ const AICommand2_3 = () => {
                   <div className="message-content">
                     <p>{message.text}</p>
                     {message.sender === "ai" && (
-                      <div className="deposit-list">
-                        {depositProducts.map((product) => (
-                          <div className="deposit-item" key={product.title}>
-                            <span className="deposit-emoji" aria-hidden="true">
-                              {product.emoji}
+                      <div className="spending-list">
+                        {message.detail.map((category) => (
+                          <div className="spending-item" key={category.label}>
+                            {/* <span className="spending-emoji" aria-hidden="true">
+                              {category.emoji}
+                            </span> */}
+                            <span className="spending-label">
+                              {category.label}
                             </span>
-                            <div className="deposit-details">
-                              <strong>{product.title}</strong>
-                              <a onClick={() => setIsConfirmationOpen(true)}>
-                                {product.price} - Pilih dan Bayar{" "}
-                                <span style={{ fontSize: "16px" }}>
-                                  &#x203A;
-                                </span>
-                              </a>
-                            </div>
+                            <strong className="spending-value">
+                              {category.value}
+                            </strong>
                           </div>
                         ))}
+                      </div>
+                    )}
+                    {message.sender === "ai" && message.detail.length > 0 && (
+                      <div className="confirmation-action">
+                        <button
+                          className="confirm-button w-full"
+                          type="button"
+                          onClick={() => setIsConfirmationOpen(true)}
+                        >
+                          Konfirmasi
+                        </button>
                       </div>
                     )}
                   </div>
@@ -201,4 +222,4 @@ const AICommand2_3 = () => {
   );
 };
 
-export default AICommand2_3;
+export default AICommand4_1;

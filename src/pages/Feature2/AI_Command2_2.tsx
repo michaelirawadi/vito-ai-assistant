@@ -19,7 +19,7 @@ type Message = {
 };
 
 const transaction: Detail[] = [
-  { emoji: "💸", label: "ID Pelanggan", value: "0123-4567-8910" },
+  { emoji: "💸", label: "ID Pelanggan", value: "0123-4567" },
   { emoji: "🍽️", label: "Biaya Listrik", value: "Rp 200.000" },
   { emoji: "🛍️", label: "Biaya Admin", value: "Rp 2.000" },
   { emoji: "🛍️", label: "Total", value: "Rp 202.000" },
