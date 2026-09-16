@@ -2,9 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AI_Command4.module.css";
 
-const INITIAL_AI_RESPONSE =
-  "Baik, saya catat keluhannya. Untuk mempercepat proses, apakah ada bukti transaksi?";
-const STATUS_AI_RESPONSE = "Status keluhan #COM-001";
+const REFUND_AI_RESPONSE = "Pengembalian dana berhasil dilakukan";
 
 type Detail = {
   emoji: string;
@@ -20,27 +18,30 @@ type Message = {
 };
 
 const statusDetail: Detail[] = [
-  { emoji: "✅", label: "14:00 - ", value: "Keluhan diterima" },
-  { emoji: "⌛", label: "15:30 - ", value: "Sedang diverifikasi tim" },
-  {
-    emoji: "⌛",
-    label: "17:00 - ",
-    value: "Diteruskan ke bagian penyelesaian",
-  },
+  { emoji: "", label: "Amount", value: "Rp 75.000" },
+  { emoji: "", label: "Date", value: "01-01-1990" },
+  { emoji: "", label: "Time", value: "15:00" },
 ];
 
-const AICommand4_2 = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const AICommand4_3 = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      text: REFUND_AI_RESPONSE,
+      sender: "ai",
+      detail: statusDetail,
+    },
+  ]);
   const [input, setInput] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const nextMessageId = useRef(1);
+  const nextMessageId = useRef(2);
 
   useEffect(() => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Berikan status keluhan saya #COM-001 ");
+      addConversation("Berikan detail pengembalian dana saya");
       setIsListening(false);
     }, 5000);
 
@@ -56,28 +57,7 @@ const AICommand4_2 = () => {
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
-      text: STATUS_AI_RESPONSE,
-      sender: "ai",
-      detail: statusDetail,
-    };
-
-    setMessages((currentMessages) => [
-      ...currentMessages,
-      userMessage,
-      aiMessage,
-    ]);
-  };
-
-  const addStatusConversation = (userText: string) => {
-    const userMessage: Message = {
-      id: nextMessageId.current++,
-      text: userText,
-      sender: "user",
-      detail: [],
-    };
-    const aiMessage: Message = {
-      id: nextMessageId.current++,
-      text: STATUS_AI_RESPONSE,
+      text: REFUND_AI_RESPONSE,
       sender: "ai",
       detail: statusDetail,
     };
@@ -94,18 +74,13 @@ const AICommand4_2 = () => {
     const trimmedInput = input.trim();
     if (!trimmedInput) return;
 
-    if (trimmedInput.toLowerCase() === "cek status masalah #com-001") {
-      addStatusConversation(trimmedInput);
-    } else {
-      addConversation(trimmedInput);
-    }
+    addConversation(trimmedInput);
     setInput("");
   };
 
   const handleVoiceStart = () => {
     if (isListening) return;
     setIsListening(true);
-    // addConversation("Berapa nominal tabungan saya?");
   };
 
   return (
@@ -133,62 +108,47 @@ const AICommand4_2 = () => {
       </header>
 
       <section className={styles["chat-area"]} aria-live="polite">
-        {messages.length === 0 ? (
-          <div className={styles["welcome-message"]}>
-            <div className={styles["welcome-mark"]}>AI</div>
-            <h2>Halo, ada yang bisa dibantu?</h2>
-            <p>Tanyakan sesuatu tentang rekening Anda.</p>
-          </div>
-        ) : (
-          <div className={styles["message-list"]}>
-            {messages.map((message) => (
-              <div
-                className={`${styles["message-row"]} ${styles[message.sender]}`}
-                key={message.id}
-              >
-                <div className={styles["message-bubble"]}>
+        <div className={styles["message-list"]}>
+          {messages.map((message) => (
+            <div
+              className={`${styles["message-row"]} ${styles[message.sender]}`}
+              key={message.id}
+            >
+              <div className={styles["message-bubble"]}>
+                {message.sender === "ai" && (
+                  <span className={styles["message-avatar"]}>AI</span>
+                )}
+                <div className={styles["message-content"]}>
                   {message.sender === "ai" && (
-                    <span className={styles["message-avatar"]}>AI</span>
+                    <div className={styles["success-icon"]} aria-hidden="true">
+                      <span>✓</span>
+                    </div>
                   )}
-                  <div className={styles["message-content"]}>
-                    <p>{message.text}</p>
-                    {message.sender === "ai" && message.detail.length > 0 && (
-                      <div className={styles["spending-list"]}>
-                        {message.detail.map((category) => (
-                          <div
-                            className={styles["spending-item-2"]}
-                            key={category.label}
-                          >
-                            <span
-                              className={styles["spending-emoji"]}
-                              aria-hidden="true"
-                            >
-                              {category.emoji}
-                            </span>
-                            <span
-                              className={styles["spending-label"]}
-                              style={{ textWrap: "auto" }}
-                            >
-                              {category.label}
-                            </span>
-                            {category.value && (
-                              <strong
-                                className={styles["spending-value"]}
-                                style={{ textWrap: "auto" }}
-                              >
-                                {category.value}
-                              </strong>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <p>{message.text}</p>
+                  {message.sender === "ai" && message.detail.length > 0 && (
+                    <div className={styles["spending-list"]} style={{ marginTop: "10px", paddingTop: "10px"}}>
+                      {message.detail.map((category) => (
+                        <div
+                          className={styles["spending-item-3"]}
+                          key={category.label}
+                        >
+                          <span className={styles["spending-label"]}>
+                            {category.label}
+                          </span>
+                          {category.value && (
+                            <strong className={styles["spending-value"]}>
+                              {category.value}
+                            </strong>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </section>
 
       {isListening && (
@@ -230,8 +190,7 @@ const AICommand4_2 = () => {
             onClick={() => setIsConfirmationOpen(false)}
             aria-label="Konfirmasi dengan biometrik"
           >
-            {/* <span aria-hidden="true">&#x1CAC;</span> */}
-            <img style={{ maxWidth: "75%" }} src="/fingerprint.svg"></img>
+            <img style={{ maxWidth: "75%" }} src="/fingerprint.svg" alt="" />
           </button>
         </div>
       )}
@@ -268,4 +227,4 @@ const AICommand4_2 = () => {
   );
 };
 
-export default AICommand4_2;
+export default AICommand4_3;

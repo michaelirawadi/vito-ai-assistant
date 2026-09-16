@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-// @ts-expect-error CSS is loaded by the bundler and has no TypeScript declaration.
-import "./AI_Command4.css";
+import styles from "./AI_Command4.module.css";
 
 const INITIAL_AI_RESPONSE =
   "Baik, saya catat keluhannya. Untuk mempercepat proses, apakah ada bukti transaksi?";
@@ -121,9 +120,13 @@ const AICommand4_1 = () => {
   };
 
   return (
-    <main className="ai-page">
-      <header className="ai-header">
-        <Link className="ai-back-button" to="/" aria-label="Back to home">
+    <main className={styles["ai-page"]}>
+      <header className={styles["ai-header"]}>
+        <Link
+          className={styles["ai-back-button"]}
+          to="/"
+          aria-label="Back to home"
+        >
           <span
             style={{ display: "inline-block", transform: "scaleX(-1)" }}
             aria-hidden="true"
@@ -132,42 +135,49 @@ const AICommand4_1 = () => {
           </span>
         </Link>
         <div>
-          <p className="ai-eyebrow">VITO AI ASSISTANT</p>
+          <p className={styles["ai-eyebrow"]}>VITO AI ASSISTANT</p>
           <h1>AI Command</h1>
         </div>
-        <div className="ai-status" aria-label="AI online">
+        <div className={styles["ai-status"]} aria-label="AI online">
           <span />
         </div>
       </header>
 
-      <section className="chat-area" aria-live="polite">
+      <section className={styles["chat-area"]} aria-live="polite">
         {messages.length === 0 ? (
-          <div className="welcome-message">
-            <div className="welcome-mark">AI</div>
+          <div className={styles["welcome-message"]}>
+            <div className={styles["welcome-mark"]}>AI</div>
             <h2>Halo, ada yang bisa dibantu?</h2>
             <p>Tanyakan sesuatu tentang rekening Anda.</p>
           </div>
         ) : (
-          <div className="message-list">
+          <div className={styles["message-list"]}>
             {messages.map((message) => (
-              <div className={`message-row ${message.sender}`} key={message.id}>
-                <div className="message-bubble">
+              <div
+                className={`${styles["message-row"]} ${styles[message.sender]}`}
+                key={message.id}
+              >
+                <div className={styles["message-bubble"]}>
                   {message.sender === "ai" && (
-                    <span className="message-avatar">AI</span>
+                    <span className={styles["message-avatar"]}>AI</span>
                   )}
-                  <div className="message-content">
+                  <div className={styles["message-content"]}>
                     <p>{message.text}</p>
                     {message.imageUrl && (
                       <img
-                        className="transaction-image"
+                        className={styles["transaction-image"]}
                         src={message.imageUrl}
                         alt="Bukti transaksi yang diunggah"
                       />
                     )}
                     {message.showUpload && isUploadRequested && (
                       <label
-                        className="upload-button"
-                        style={{ color: "#1768a7", fontSize: "14px", cursor: "pointer" }}
+                        className={styles["upload-button"]}
+                        style={{
+                          color: "#1768a7",
+                          fontSize: "14px",
+                          cursor: "pointer",
+                        }}
                       >
                         Unggah bukti transaksi
                         {/* <span aria-hidden="true" style={{ marginLeft: "5px"}}>&#128206;</span> */}
@@ -180,17 +190,20 @@ const AICommand4_1 = () => {
                       </label>
                     )}
                     {message.sender === "ai" && message.detail.length > 0 && (
-                      <div className="spending-list">
+                      <div className={styles["spending-list"]}>
                         {message.detail.map((category) => (
-                          <div className="spending-item" key={category.label}>
+                          <div
+                            className={styles["spending-item"]}
+                            key={category.label}
+                          >
                             {/* <span className="spending-emoji" aria-hidden="true">
                               {category.emoji}
                             </span> */}
-                            <span className="spending-label">
+                            <span className={styles["spending-label"]}>
                               {category.label}
                             </span>
                             <strong
-                              className="spending-value"
+                              className={styles["spending-value"]}
                               style={{ textWrap: "auto" }}
                             >
                               {category.value}
@@ -208,8 +221,8 @@ const AICommand4_1 = () => {
       </section>
 
       {isListening && (
-        <div className="listening-panel" role="status">
-          <div className="voice-wave" aria-hidden="true">
+        <div className={styles["listening-panel"]} role="status">
+          <div className={styles["voice-wave"]} aria-hidden="true">
             <span />
             <span />
             <span />
@@ -224,12 +237,16 @@ const AICommand4_1 = () => {
       )}
 
       {isConfirmationOpen && (
-        <div className="confirmation-modal" role="dialog" aria-modal="true">
-          <div className="confirmation-dialog">
+        <div
+          className={styles["confirmation-modal"]}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className={styles["confirmation-dialog"]}>
             <p className="text-center text-[17px]">Konfirmasi Pembayaran</p>
-            <p className="confirmation-or">atau</p>
+            <p className={styles["confirmation-or"]}>atau</p>
             <button
-              className="pin-button"
+              className={styles["pin-button"]}
               type="button"
               onClick={() => setIsConfirmationOpen(false)}
             >
@@ -237,7 +254,7 @@ const AICommand4_1 = () => {
             </button>
           </div>
           <button
-            className="biometric-button"
+            className={styles["biometric-button"]}
             type="button"
             onClick={() => setIsConfirmationOpen(false)}
             aria-label="Konfirmasi dengan biometrik"
@@ -248,8 +265,8 @@ const AICommand4_1 = () => {
         </div>
       )}
 
-      <form className="chat-composer" onSubmit={handleSubmit}>
-        <label className="chat-input-wrap">
+      <form className={styles["chat-composer"]} onSubmit={handleSubmit}>
+        <label className={styles["chat-input-wrap"]}>
           <span className="sr-only">Your message</span>
           <input
             type="text"
@@ -260,7 +277,7 @@ const AICommand4_1 = () => {
           />
         </label>
         <button
-          className={`voice-button ${isListening ? "active" : ""}`}
+          className={`${styles["voice-button"]} ${isListening ? "active" : ""}`}
           type="button"
           onClick={handleVoiceStart}
           aria-label={isListening ? "Listening" : "Start voice input"}
@@ -268,7 +285,11 @@ const AICommand4_1 = () => {
         >
           <span aria-hidden="true">&#x1F399;</span>
         </button>
-        <button className="send-button" type="submit" aria-label="Send message">
+        <button
+          className={styles["send-button"]}
+          type="submit"
+          aria-label="Send message"
+        >
           <span aria-hidden="true">&#10140;</span>
         </button>
       </form>

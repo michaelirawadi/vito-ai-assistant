@@ -30,6 +30,15 @@ const Feature4_2 = () => {
 
   return (
     <main className="mobile-shell">
+      <Link
+        className="push-notification"
+        to="/AI_Command4_3"
+        aria-label="Buka update keluhan COM-001"
+      >
+        <strong>Update Keluhan #COM-001</strong>
+        <span>Saldo sudah dikembalikan ke rekening anda. <b> Cek Sekarang?</b></span>
+      </Link>
+
       <section className="hero-panel">
         <header className="topbar">
           <SkeletonLine className="brand-placeholder" />
@@ -92,7 +101,7 @@ const Feature4_2 = () => {
 
       <Link
         className="ai-fab"
-        to="/AI_Command4_2"
+        to="/AI_Command4_3"
         aria-label="Open AI assistant"
       >
         <span className="ai-fab-orbit" aria-hidden="true" />

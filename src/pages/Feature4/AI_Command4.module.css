@@ -164,19 +164,59 @@
   min-width: 0;
 }
 
+.success-icon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  margin: 4px auto 18px;
+  place-items: center;
+  color: #fff;
+  background: #2bb8b4;
+  border: 6px solid #d7f3f1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #2bb8b4;
+  font-size: 39px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.success-icon span {
+  transform: translateY(-2px);
+}
+
 .spending-list {
   display: grid;
-  gap: 7px;
-  margin-top: 11px;
-  padding-top: 10px;
-  border-top: 1px solid #e4edf4;
+  gap: 0;
+  margin-top: 18px;
+  padding-top: 2px;
+  border-top: 1px solid #dfe5ea;
 }
 
 .spending-item {
   display: grid !important;
+  grid-template-columns: 110px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 14px !important;
+}
+
+.spending-item-2 {
+  display: grid !important;
   grid-template-columns: 20px 44px auto !important;
   align-items: center !important;
   gap: 7px !important;
+  font-size: 14px !important;
+}
+
+.spending-item-3 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto) !important;
+  align-items: center !important;
+  gap: 18px !important;
+  /* min-height: 58px; */
+  /* padding: 12px 0; */
+  /* border-bottom: 1px solid #e1e5e8; */
+  padding: 2px;
   font-size: 14px !important;
 }
 
@@ -191,14 +231,16 @@
 }
 
 .spending-label {
-  color: #5d7892;
-  white-space: nowrap;
+  color: #56636e;
+  white-space: normal;
 }
 
 .spending-value {
-  color: #1768a7;
+  color: #173f60;
   font-size: 14px;
-  white-space: nowrap;
+  font-weight: 700;
+  text-align: right;
+  white-space: normal;
 }
 
 .deposit-list {
