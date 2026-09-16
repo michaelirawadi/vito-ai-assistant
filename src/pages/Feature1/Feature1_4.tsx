@@ -18,20 +18,19 @@ const SkeletonLine = ({ className = "" }: { className?: string }) => (
 );
 
 const navItems = [
-  { label: "Beranda", path: "/" },
-  { label: "Aktivitas", path: "/Home_2" },
+  { label: "Beranda", path: "/Feature1_1" },
+  { label: "Aktivitas", path: "/Feature1_2" },
   { label: "QRIS", path: "/qris" },
-  { label: "Untukmu", path: "/Home_3" },
-  { label: "Akun Saya", path: "/Home_4" },
+  { label: "Untukmu", path: "/Feature1_3" },
+  { label: "Akun Saya", path: "/Feature1_4" },
 ];
 
-const Home3 = () => {
+const Feature1_4 = () => {
   const navigate = useNavigate();
 
   return (
     <main className="mobile-shell">
       <section className="hero-panel">
-
         <header className="topbar">
           <SkeletonLine className="brand-placeholder" />
           <div className="topbar-actions" aria-hidden="true">
@@ -93,7 +92,7 @@ const Home3 = () => {
 
       <Link
         className="ai-fab"
-        to="/AI_Command_3"
+        to="/AI_Command_4"
         aria-label="Open AI assistant"
       >
         <span className="ai-fab-orbit" aria-hidden="true" />
@@ -123,4 +122,4 @@ const Home3 = () => {
   );
 };
 
-export default Home3;
+export default Feature1_4;

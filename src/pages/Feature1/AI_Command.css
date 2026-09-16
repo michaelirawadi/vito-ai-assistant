@@ -177,7 +177,7 @@
   grid-template-columns: 22px minmax(0, 1fr) auto;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .spending-emoji {

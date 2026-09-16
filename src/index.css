@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   background: #e9eef7;
@@ -307,4 +311,12 @@ body {
   .skeleton-line {
     animation: none;
   }
+}
+
+.home-menu-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid #e4edf4;
 }

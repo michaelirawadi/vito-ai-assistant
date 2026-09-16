@@ -18,14 +18,14 @@ const SkeletonLine = ({ className = "" }: { className?: string }) => (
 );
 
 const navItems = [
-  { label: "Beranda", path: "/" },
-  { label: "Aktivitas", path: "/Home_2" },
-  { label: "QRIS", path: "/qris" },
-  { label: "Untukmu", path: "/Home_3" },
-  { label: "Akun Saya", path: "/Home_4" },
+  { label: "Beranda", path: "/Feature2_1" },
+  { label: "Aktivitas", path: "/Feature2_2" },
+  { label: "QRIS", path: "#" },
+  { label: "Untukmu", path: "/Feature2_3" },
+  { label: "Akun Saya", path: "#" },
 ];
 
-const Home = () => {
+const Feature2_1 = () => {
   const navigate = useNavigate();
 
   return (
@@ -92,7 +92,7 @@ const Home = () => {
 
       <Link
         className="ai-fab"
-        to="/AI_Command_1"
+        to="/AI_Command2_1"
         aria-label="Open AI assistant"
       >
         <span className="ai-fab-orbit" aria-hidden="true" />
@@ -122,4 +122,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Feature2_1;

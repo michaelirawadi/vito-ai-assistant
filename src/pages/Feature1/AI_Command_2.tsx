@@ -40,7 +40,7 @@ const AICommand = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Berikan mutasi rekening bulan lalu?");
+      addConversation("Mengapa pengeluaran bulan lalu lebih banyak dari bulan sebelumnya?");
       setIsListening(false);
     }, 5000);
 
