@@ -18,7 +18,9 @@ import Feature2_1 from "./pages/Feature2/Feature2_1";
 import Feature2_2 from "./pages/Feature2/Feature2_2";
 import Feature2_3 from "./pages/Feature2/Feature2_3";
 import AICommand4_1 from "./pages/Feature4/AI_Command4_1";
+import AICommand4_2 from "./pages/Feature4/AI_Command4_2";
 import Feature4_1 from "./pages/Feature4/Feature4_1";
+import Feature4_2 from "./pages/Feature4/Feature4_2";
 import Home from "./pages/Home";
 import reportWebVitals from "./reportWebVitals";
 
@@ -46,7 +48,9 @@ root.render(
       <Route path="/AI_Command2_2" element={<AICommand2_2 />} />
       <Route path="/AI_Command2_3" element={<AICommand2_3 />} />
       <Route path="/Feature4_1" element={<Feature4_1 />} />
+      <Route path="/Feature4_2" element={<Feature4_2 />} />
       <Route path="/AI_Command4_1" element={<AICommand4_1 />} />
+      <Route path="/AI_Command4_2" element={<AICommand4_2 />} />
     </Routes>
   </BrowserRouter>,
 );

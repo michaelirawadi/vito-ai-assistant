@@ -36,7 +36,7 @@ const AICommand2_2 = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Transfer 100 ribu ke rekening pak Budi");
+      addConversation("Pembayaran Tagihan Listrik");
       setIsListening(false);
     }, 5000);
 

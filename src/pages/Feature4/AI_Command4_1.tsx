@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 // @ts-expect-error CSS is loaded by the bundler and has no TypeScript declaration.
-import "./AI_Command.css";
+import "./AI_Command4.css";
 
 const INITIAL_AI_RESPONSE =
   "Baik, saya catat keluhannya. Untuk mempercepat proses, apakah ada bukti transaksi?";

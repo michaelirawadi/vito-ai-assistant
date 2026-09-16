@@ -25,7 +25,7 @@ const navItems = [
   { label: "Akun Saya", path: "#" },
 ];
 
-const Feature4_1 = () => {
+const Feature4_2 = () => {
   const navigate = useNavigate();
 
   return (
@@ -122,4 +122,4 @@ const Feature4_1 = () => {
   );
 };
 
-export default Feature4_1;
+export default Feature4_2;

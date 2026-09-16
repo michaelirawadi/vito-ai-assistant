@@ -1,17 +1,16 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 // @ts-expect-error CSS is loaded by the bundler and has no TypeScript declaration.
-import "./AI_Command.css";
+import "./AI_Command4.css";
 
 const INITIAL_AI_RESPONSE =
   "Baik, saya catat keluhannya. Untuk mempercepat proses, apakah ada bukti transaksi?";
-const UPLOAD_AI_RESPONSE =
-  "Terima kasih, bukti transaksi sudah kami terima. Keluhan Anda sedang kami proses.";
+const STATUS_AI_RESPONSE = "Status keluhan #COM-001";
 
 type Detail = {
   emoji: string;
   label: string;
-  value: string;
+  value?: string;
 };
 
 type Message = {
@@ -19,29 +18,19 @@ type Message = {
   text: string;
   sender: "user" | "ai";
   detail: Detail[];
-  imageUrl?: string;
-  showUpload?: boolean;
 };
 
-const transactionDetail: Detail[] = [
-  { emoji: "💸", label: "Nomor Tiket", value: "#COM-001" },
-  { emoji: "🛍️", label: "Nominal", value: "Rp 75.000" },
-  { emoji: "🛍️", label: "Waktu & Tanggal", value: "01-01-1990 10:00 AM" },
-  {
-    emoji: "🍽️",
-    label: "Jenis Keluhan",
-    value: "Transaksi Gagal (Saldo Terpotong)",
-  },
-  { emoji: "🛍️", label: "Status saat ini", value: "Diterima tim kami" },
-  { emoji: "🛍️", label: "Estimasi Proses", value: "1x24 jam" },
+const statusDetail: Detail[] = [
+  { emoji: "✅", label: "14:00 - ", value: "Keluhan diterima" },
+  { emoji: "⌛", label: "15:30 - ", value: "Sedang diverifikasi tim" },
+  { emoji: "⌛", label: "17:00 - ", value: "Diteruskan ke bagian penyelesaian" },
 ];
 
-const AICommand4_1 = () => {
+const AICommand4_2 = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [isUploadRequested, setIsUploadRequested] = useState(false);
   const nextMessageId = useRef(1);
 
   useEffect(() => {
@@ -66,10 +55,9 @@ const AICommand4_1 = () => {
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
-      text: INITIAL_AI_RESPONSE,
+      text: STATUS_AI_RESPONSE,
       sender: "ai",
-      detail: [],
-      showUpload: true,
+      detail: statusDetail,
     };
 
     setMessages((currentMessages) => [
@@ -77,32 +65,27 @@ const AICommand4_1 = () => {
       userMessage,
       aiMessage,
     ]);
-    setIsUploadRequested(true);
   };
 
-  const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const addStatusConversation = (userText: string) => {
+    const userMessage: Message = {
+      id: nextMessageId.current++,
+      text: userText,
+      sender: "user",
+      detail: [],
+    };
+    const aiMessage: Message = {
+      id: nextMessageId.current++,
+      text: STATUS_AI_RESPONSE,
+      sender: "ai",
+      detail: statusDetail,
+    };
 
-    const imageUrl = URL.createObjectURL(file);
     setMessages((currentMessages) => [
       ...currentMessages,
-      {
-        id: nextMessageId.current++,
-        text: "Bukti transaksi",
-        sender: "user",
-        detail: [],
-        imageUrl,
-      },
-      {
-        id: nextMessageId.current++,
-        text: UPLOAD_AI_RESPONSE,
-        sender: "ai",
-        detail: transactionDetail,
-      },
+      userMessage,
+      aiMessage,
     ]);
-    setIsUploadRequested(false);
-    event.target.value = "";
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -110,7 +93,11 @@ const AICommand4_1 = () => {
     const trimmedInput = input.trim();
     if (!trimmedInput) return;
 
-    addConversation(trimmedInput);
+    if (trimmedInput.toLowerCase() === "cek status masalah #com-001") {
+      addStatusConversation(trimmedInput);
+    } else {
+      addConversation(trimmedInput);
+    }
     setInput("");
   };
 
@@ -157,44 +144,27 @@ const AICommand4_1 = () => {
                   )}
                   <div className="message-content">
                     <p>{message.text}</p>
-                    {message.imageUrl && (
-                      <img
-                        className="transaction-image"
-                        src={message.imageUrl}
-                        alt="Bukti transaksi yang diunggah"
-                      />
-                    )}
-                    {message.showUpload && isUploadRequested && (
-                      <label
-                        className="upload-button"
-                        style={{ color: "#1768a7", fontSize: "14px", cursor: "pointer" }}
-                      >
-                        Unggah bukti transaksi
-                        {/* <span aria-hidden="true" style={{ marginLeft: "5px"}}>&#128206;</span> */}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleUpload}
-                          style={{ display: "none" }}
-                        />
-                      </label>
-                    )}
                     {message.sender === "ai" && message.detail.length > 0 && (
                       <div className="spending-list">
                         {message.detail.map((category) => (
                           <div className="spending-item" key={category.label}>
-                            {/* <span className="spending-emoji" aria-hidden="true">
+                            <span className="spending-emoji" aria-hidden="true">
                               {category.emoji}
-                            </span> */}
-                            <span className="spending-label">
-                              {category.label}
                             </span>
-                            <strong
-                              className="spending-value"
+                            <span
+                              className="spending-label"
                               style={{ textWrap: "auto" }}
                             >
-                              {category.value}
-                            </strong>
+                              {category.label}
+                            </span>
+                            {category.value && (
+                              <strong
+                                className="spending-value"
+                                style={{ textWrap: "auto" }}
+                              >
+                                {category.value}
+                              </strong>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -276,4 +246,4 @@ const AICommand4_1 = () => {
   );
 };
 
-export default AICommand4_1;
+export default AICommand4_2;

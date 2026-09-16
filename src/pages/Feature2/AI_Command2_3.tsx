@@ -26,7 +26,7 @@ const AICommand2_3 = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Ada produk deposito?");
+      addConversation("Beli paket data 30GB?");
       setIsListening(false);
     }, 5000);
 
