@@ -113,7 +113,7 @@ const AICommand2_3 = () => {
                             </span>
                             <div className="deposit-details">
                               <strong>{product.title}</strong>
-                              <a onClick={() => setIsConfirmationOpen(true )}>
+                              <a onClick={() => setIsConfirmationOpen(true)}>
                                 Pilih dan Bayar{" "}
                                 <span style={{ fontSize: "16px" }}>
                                   &#x203A;
@@ -167,7 +167,8 @@ const AICommand2_3 = () => {
             onClick={() => setIsConfirmationOpen(false)}
             aria-label="Konfirmasi dengan biometrik"
           >
-            <span aria-hidden="true">&#x1CAC;</span>
+            {/* <span aria-hidden="true">&#x1CAC;</span> */}
+            <img style={{ maxWidth: "75%" }} src="/fingerprint.svg"></img>
           </button>
         </div>
       )}

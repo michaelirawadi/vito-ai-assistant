@@ -186,7 +186,8 @@ const AICommand2_1 = () => {
             onClick={() => setIsConfirmationOpen(false)}
             aria-label="Konfirmasi dengan biometrik"
           >
-            <span aria-hidden="true">&#x1CAC;</span>
+            {/* <span aria-hidden="true">&#x1CAC;</span> */}
+            <img style={{ maxWidth: "75%" }} src="/fingerprint.svg"></img>
           </button>
         </div>
       )}
