@@ -60,8 +60,8 @@
 }
 
 .spending-pie {
-  width: 112px;
-  height: 112px;
+  width: 90px;
+  height: 90px;
   flex: 0 0 auto;
   background: conic-gradient(
     #1678b8 0 40%,
