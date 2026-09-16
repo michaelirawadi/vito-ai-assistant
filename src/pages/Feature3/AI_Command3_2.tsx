@@ -1,8 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./AI_Command4.module.css";
+import styles from "./AI_Command3.module.css";
 
-const REFUND_AI_RESPONSE = "Pengembalian dana berhasil dilakukan";
+const REFUND_AI_RESPONSE = "Bayar Tagihan Listrik";
+const REMINDER_AI_RESPONSE =
+  "Tagihan internet dan asuransi akan jatuh tempo minggu depan. Saya ingatkan lagi nanti ya.";
 
 type Detail = {
   emoji: string;
@@ -17,19 +19,20 @@ type Message = {
   detail: Detail[];
 };
 
-const statusDetail: Detail[] = [
-  { emoji: "", label: "Amount", value: "Rp 75.000" },
-  { emoji: "", label: "Date", value: "01-01-1990" },
-  { emoji: "", label: "Time", value: "15:00" },
+const transaction: Detail[] = [
+  { emoji: "💸", label: "ID Pelanggan", value: "0123-4567" },
+  { emoji: "🍽️", label: "Biaya Listrik", value: "Rp 200.000" },
+  { emoji: "🛍️", label: "Biaya Admin", value: "Rp 2.000" },
+  { emoji: "🛍️", label: "Total", value: "Rp 202.000" },
 ];
 
-const AICommand4_3 = () => {
+const AICommand3_2 = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       text: REFUND_AI_RESPONSE,
       sender: "ai",
-      detail: statusDetail,
+      detail: transaction,
     },
   ]);
   const [input, setInput] = useState("");
@@ -59,7 +62,7 @@ const AICommand4_3 = () => {
       id: nextMessageId.current++,
       text: REFUND_AI_RESPONSE,
       sender: "ai",
-      detail: statusDetail,
+      detail: transaction,
     };
 
     setMessages((currentMessages) => [
@@ -81,6 +84,19 @@ const AICommand4_3 = () => {
   const handleVoiceStart = () => {
     if (isListening) return;
     setIsListening(true);
+  };
+
+  const closeConfirmation = () => {
+    setIsConfirmationOpen(false);
+    setMessages((currentMessages) => [
+      ...currentMessages,
+      {
+        id: nextMessageId.current++,
+        text: REMINDER_AI_RESPONSE,
+        sender: "ai",
+        detail: [],
+      },
+    ]);
   };
 
   return (
@@ -118,30 +134,34 @@ const AICommand4_3 = () => {
                 {message.sender === "ai" && (
                   <span className={styles["message-avatar"]}>AI</span>
                 )}
-                <div className={styles["message-content"]}>
-                  {message.sender === "ai" && (
-                    <div className={styles["success-icon"]} aria-hidden="true">
-                      <span>✓</span>
-                    </div>
-                  )}
+                <div className="message-content">
                   <p>{message.text}</p>
-                  {message.sender === "ai" && message.detail.length > 0 && (
-                    <div className={styles["spending-list"]} style={{ marginTop: "10px", paddingTop: "10px"}}>
+                  {message.sender === "ai" && (
+                    <div className="spending-list">
                       {message.detail.map((category) => (
-                        <div
-                          className={styles["spending-item-3"]}
-                          key={category.label}
-                        >
-                          <span className={styles["spending-label"]}>
+                        <div className="spending-item" key={category.label}>
+                          {/* <span className="spending-emoji" aria-hidden="true">
+                              {category.emoji}
+                            </span> */}
+                          <span className="spending-label">
                             {category.label}
                           </span>
-                          {category.value && (
-                            <strong className={styles["spending-value-2"]}>
-                              {category.value}
-                            </strong>
-                          )}
+                          <strong className="spending-value">
+                            {category.value}
+                          </strong>
                         </div>
                       ))}
+                    </div>
+                  )}
+                  {message.sender === "ai" && message.detail.length > 0 && (
+                    <div className="confirmation-action">
+                      <button
+                        className="confirm-button w-full"
+                        type="button"
+                        onClick={() => setIsConfirmationOpen(true)}
+                      >
+                        Konfirmasi
+                      </button>
                     </div>
                   )}
                 </div>
@@ -179,7 +199,7 @@ const AICommand4_3 = () => {
             <button
               className={styles["pin-button"]}
               type="button"
-              onClick={() => setIsConfirmationOpen(false)}
+              onClick={closeConfirmation}
             >
               Gunakan PIN
             </button>
@@ -187,7 +207,7 @@ const AICommand4_3 = () => {
           <button
             className={styles["biometric-button"]}
             type="button"
-            onClick={() => setIsConfirmationOpen(false)}
+            onClick={closeConfirmation}
             aria-label="Konfirmasi dengan biometrik"
           >
             <img style={{ maxWidth: "75%" }} src="/fingerprint.svg" alt="" />
@@ -227,4 +247,4 @@ const AICommand4_3 = () => {
   );
 };
 
-export default AICommand4_3;
+export default AICommand3_2;

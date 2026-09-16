@@ -42,6 +42,141 @@
   font-size: 22px;
 }
 
+.spending-chart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 14px 0 12px;
+  padding: 14px 0;
+  border-top: 1px solid #e4edf4;
+  border-bottom: 1px solid #e4edf4;
+}
+
+.spending-total {
+  margin: 14px 0 0 !important;
+  color: #173f60;
+  font-size: 15px !important;
+  font-weight: 700;
+}
+
+.spending-pie {
+  width: 112px;
+  height: 112px;
+  flex: 0 0 auto;
+  background: conic-gradient(
+    #1678b8 0 40%,
+    #2bb8b4 40% 65%,
+    #f2b84b 65% 85%,
+    #e77b62 85% 100%
+  );
+  border: 8px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(20, 59, 105, 0.12);
+}
+
+.spending-legend {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 8px;
+}
+
+.spending-legend-item {
+  display: grid;
+  grid-template-columns: 9px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  color: #5d7892;
+  font-size: 12px;
+}
+
+.spending-legend-item strong {
+  color: #1768a7;
+  font-size: 12px;
+}
+
+.spending-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.spending-follow-up {
+  margin-top: 9px !important;
+}
+
+.investment-summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 12px;
+  margin-top: 14px;
+  padding: 12px;
+  color: #5d7892;
+  background: #f3f8fb;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.investment-summary span {
+  color: #1768a7;
+  font-weight: 700;
+  text-align: right;
+}
+
+.investment-chart {
+  margin-top: 14px;
+  padding: 10px 0 4px;
+  border-top: 1px solid #e4edf4;
+  border-bottom: 1px solid #e4edf4;
+}
+
+.investment-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.investment-chart line {
+  stroke: #dbe7ef;
+  stroke-width: 1;
+}
+
+.investment-chart polyline {
+  fill: none;
+  stroke: #1678b8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.investment-chart circle {
+  fill: #fff;
+  stroke: #2bb8b4;
+  stroke-width: 3;
+}
+
+.investment-chart text {
+  fill: #8294a9;
+  font-size: 8px;
+}
+
+.investment-values {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  color: #1768a7;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.investment-analysis {
+  margin-top: 12px !important;
+  color: #5d7892;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+
 .ai-eyebrow {
   margin: 0 0 4px;
   color: rgba(255, 255, 255, 0.72);
@@ -236,15 +371,6 @@
 }
 
 .spending-value {
-  color: #173f60;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-  white-space: normal;
-}
-
-
-.spending-value-2 {
   color: #173f60;
   font-size: 14px;
   font-weight: 700;

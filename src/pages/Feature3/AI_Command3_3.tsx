@@ -1,8 +1,11 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./AI_Command4.module.css";
+import styles from "./AI_Command3.module.css";
 
-const REFUND_AI_RESPONSE = "Pengembalian dana berhasil dilakukan";
+const INVESTMENT_AI_RESPONSE =
+  "Berikut simulasi investasi deposito Anda dengan bunga 4,5% per tahun.";
+const INVESTMENT_ANALYSIS =
+  "Dengan bunga 4,5% dari bank, deposito membantu mengembangkan dana secara stabil dengan risiko yang lebih terukur. Bunga akan menambah nilai simpanan Anda selama tenor berjalan.";
 
 type Detail = {
   emoji: string;
@@ -15,21 +18,24 @@ type Message = {
   text: string;
   sender: "user" | "ai";
   detail: Detail[];
+  showInvestmentSimulation?: boolean;
 };
 
-const statusDetail: Detail[] = [
-  { emoji: "", label: "Amount", value: "Rp 75.000" },
-  { emoji: "", label: "Date", value: "01-01-1990" },
-  { emoji: "", label: "Time", value: "15:00" },
+const investmentPoints = [
+  { year: "Mulai", value: "Rp 10 jt", x: 18, y: 136 },
+  { year: "Tahun 1", value: "Rp 10,45 jt", x: 88, y: 116 },
+  { year: "Tahun 2", value: "Rp 10,92 jt", x: 158, y: 94 },
+  { year: "Tahun 3", value: "Rp 11,41 jt", x: 228, y: 70 },
 ];
 
-const AICommand4_3 = () => {
+const AICommand3_3 = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: REFUND_AI_RESPONSE,
+      text: INVESTMENT_AI_RESPONSE,
       sender: "ai",
-      detail: statusDetail,
+      detail: [],
+      showInvestmentSimulation: true,
     },
   ]);
   const [input, setInput] = useState("");
@@ -41,7 +47,7 @@ const AICommand4_3 = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Berikan detail pengembalian dana saya");
+      addConversation("Simulasikan investasi saya");
       setIsListening(false);
     }, 5000);
 
@@ -57,9 +63,9 @@ const AICommand4_3 = () => {
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
-      text: REFUND_AI_RESPONSE,
+      text: INVESTMENT_AI_RESPONSE,
       sender: "ai",
-      detail: statusDetail,
+      detail: [],
     };
 
     setMessages((currentMessages) => [
@@ -119,30 +125,58 @@ const AICommand4_3 = () => {
                   <span className={styles["message-avatar"]}>AI</span>
                 )}
                 <div className={styles["message-content"]}>
-                  {message.sender === "ai" && (
-                    <div className={styles["success-icon"]} aria-hidden="true">
-                      <span>✓</span>
-                    </div>
-                  )}
                   <p>{message.text}</p>
-                  {message.sender === "ai" && message.detail.length > 0 && (
-                    <div className={styles["spending-list"]} style={{ marginTop: "10px", paddingTop: "10px"}}>
-                      {message.detail.map((category) => (
-                        <div
-                          className={styles["spending-item-3"]}
-                          key={category.label}
+                  {message.showInvestmentSimulation && (
+                    <>
+                      <div className={styles["investment-summary"]}>
+                        <strong>Modal awal</strong>
+                        <span>Rp 10.000.000</span>
+                        <strong>Bunga</strong>
+                        <span>4,5% per tahun</span>
+                      </div>
+                      <div className={styles["investment-chart"]}>
+                        <svg
+                          viewBox="0 0 246 170"
+                          role="img"
+                          aria-label="Grafik pertumbuhan investasi dari Rp 10 juta menjadi Rp 11,41 juta dalam tiga tahun dengan bunga 4,5% per tahun"
                         >
-                          <span className={styles["spending-label"]}>
-                            {category.label}
-                          </span>
-                          {category.value && (
-                            <strong className={styles["spending-value-2"]}>
-                              {category.value}
-                            </strong>
-                          )}
+                          <line x1="18" y1="14" x2="18" y2="142" />
+                          <line x1="18" y1="142" x2="236" y2="142" />
+                          <polyline points="18,136 88,116 158,94 228,70" />
+                          {investmentPoints.map((point) => (
+                            <g key={point.year}>
+                              <circle cx={point.x} cy={point.y} r="4" />
+                              <text x={point.x} y="160" textAnchor="middle">
+                                {point.year}
+                              </text>
+                            </g>
+                          ))}
+                        </svg>
+                        <div className={styles["investment-values"]}>
+                          {investmentPoints.map((point) => (
+                            <span key={point.year}>{point.value}</span>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                      <p
+                        className={styles["investment-analysis"]}
+                        style={{ marginLeft: "20px" }}
+                      >
+                        {INVESTMENT_ANALYSIS}
+                      </p>
+                      <a
+                        onClick={() => setIsConfirmationOpen(true)}
+                        style={{
+                          textAlign: "right",
+                          width: "100%",
+                          display: "block",
+                          fontSize: "14px",
+                          paddingRight: "5px"
+                        }}
+                      >
+                        Lihat Penawaran{" "}
+                      </a>
+                    </>
                   )}
                 </div>
               </div>
@@ -227,4 +261,4 @@ const AICommand4_3 = () => {
   );
 };
 
-export default AICommand4_3;
+export default AICommand3_3;

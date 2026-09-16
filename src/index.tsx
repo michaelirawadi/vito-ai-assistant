@@ -17,6 +17,12 @@ import AICommand2_3 from "./pages/Feature2/AI_Command2_3";
 import Feature2_1 from "./pages/Feature2/Feature2_1";
 import Feature2_2 from "./pages/Feature2/Feature2_2";
 import Feature2_3 from "./pages/Feature2/Feature2_3";
+import AICommand3_1 from "./pages/Feature3/AI_Command3_1";
+import AICommand3_2 from "./pages/Feature3/AI_Command3_2";
+import AICommand3_3 from "./pages/Feature3/AI_Command3_3";
+import Feature3_1 from "./pages/Feature3/Feature3_1";
+import Feature3_2 from "./pages/Feature3/Feature3_2";
+import Feature3_3 from "./pages/Feature3/Feature3_3";
 import AICommand4_1 from "./pages/Feature4/AI_Command4_1";
 import AICommand4_2 from "./pages/Feature4/AI_Command4_2";
 import AICommand4_3 from "./pages/Feature4/AI_Command4_3";
@@ -55,6 +61,12 @@ root.render(
       <Route path="/AI_Command4_1" element={<AICommand4_1 />} />
       <Route path="/AI_Command4_2" element={<AICommand4_2 />} />
       <Route path="/AI_Command4_3" element={<AICommand4_3 />} />
+      <Route path="/Feature3_1" element={<Feature3_1 />} />
+      <Route path="/Feature3_2" element={<Feature3_2 />} />
+      <Route path="/Feature3_3" element={<Feature3_3 />} />
+      <Route path="/AI_Command3_1" element={<AICommand3_1 />} />
+      <Route path="/AI_Command3_2" element={<AICommand3_2 />} />
+      <Route path="/AI_Command3_3" element={<AICommand3_3 />} />
     </Routes>
   </BrowserRouter>,
 );

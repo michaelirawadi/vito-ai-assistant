@@ -12,6 +12,7 @@ body {
 }
 
 .mobile-shell {
+  position: relative;
   min-height: 100vh;
   max-width: 480px;
   margin: 0 auto;
