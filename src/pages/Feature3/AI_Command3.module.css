@@ -293,6 +293,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
+  white-space: pre-line;
 }
 
 .message-content {
@@ -434,9 +435,9 @@
 .contact-list {
   display: grid;
   gap: 9px;
-  /* margin-top: 11px; */
-  /* padding-top: 10px; */
-  /* border-top: 1px solid #e4edf4; */
+  margin-top: 7px;
+  padding-top: 10px;
+  border-top: 1px solid #e4edf4;
 }
 
 .contact-card {

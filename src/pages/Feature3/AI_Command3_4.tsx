@@ -1,11 +1,28 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AI_Command3.module.css";
 
 const AI_RESPONSE = "Penawaran KPR rumah dengan nominal Rp 750.000.000.";
-const AI_RESPONSE_2 =
-  "Anda memilih Paket A. " +
-  "Anda dapat bertanya pada kontak dibawah ini apabila ingin bertanya lebih lanjut.";
+const AI_RESPONSE_2 = `KPR Rumah - Penawaran A
+
+Wujudkan rumah impian Anda dengan fasilitas KPR dari [Nama Bank].
+
+Detail pembiayaan:
+- Harga rumah: Rp750.000.000
+- Plafon KPR: Rp750.000.000
+- Tenor: 5 tahun (60 bulan)
+- Suku bunga: 6,50% per tahun
+- Estimasi cicilan: +/- Rp14.672.000/bulan
+- Estimasi total pembayaran pokok + bunga: +/- Rp880.320.000
+
+Estimasi biaya tambahan:
+- Provisi: Rp7.500.000
+- Administrasi: Rp500.000
+- Biaya asuransi dan biaya terkait lainnya mengikuti ketentuan yang berlaku.
+
+Penawaran ini merupakan simulasi dan belum merupakan persetujuan kredit. Besaran bunga, cicilan, biaya, serta persetujuan fasilitas KPR akan mengikuti hasil analisis dan ketentuan [Nama Bank].`;
+const AI_RESPONSE_CONTACT =
+  "Senang dapat membantu anda! Berikut kontak yang dapat membantu Anda lebih lanjut.";
 
 type kpr = {
   emoji: string;
@@ -71,14 +88,35 @@ const AICommand3_4 = () => {
     if (!isListening) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      addConversation("Saya ingin melakukan kpr rumah sebesar 750 juta");
+      const detailWasShown = messages.some(
+        (message) => message.text === AI_RESPONSE_2,
+      );
+
+      if (nextMessageId.current === 1) {
+        addConversation("Saya ingin melakukan kpr rumah sebesar 750 juta");
+      } else if (detailWasShown) {
+        addConversation(
+          "Oke terimakasih informasinya",
+          AI_RESPONSE_CONTACT,
+          [],
+          contact,
+        );
+      } else {
+        addConversation("Oke terimakasih informasinya");
+      }
+      // addConversation("Saya ingin melakukan kpr rumah sebesar 750 juta");
       setIsListening(false);
     }, 5000);
 
     return () => window.clearTimeout(timeoutId);
   }, [isListening]);
 
-  const addConversation = (userText: string) => {
+  const addConversation = (
+    userText: string,
+    aiResponse = AI_RESPONSE,
+    detail = kprProducts,
+    contacts: Contact[] = [],
+  ) => {
     const userMessage: Message = {
       id: nextMessageId.current++,
       text: userText,
@@ -88,10 +126,10 @@ const AICommand3_4 = () => {
     };
     const aiMessage: Message = {
       id: nextMessageId.current++,
-      text: AI_RESPONSE,
+      text: aiResponse,
       sender: "ai",
-      detail: kprProducts,
-      contact: [],
+      detail,
+      contact: contacts,
     };
 
     setMessages((currentMessages) => [
@@ -101,13 +139,14 @@ const AICommand3_4 = () => {
     ]);
   };
 
-  const addConversationContact = () => {
+  const addConversationContact = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     const aiMessage: Message = {
       id: nextMessageId.current++,
       text: AI_RESPONSE_2,
       sender: "ai",
       detail: [],
-      contact: contact,
+      contact: [],
     };
     setMessages((currentMessages) => [...currentMessages, aiMessage]);
   };
@@ -117,7 +156,14 @@ const AICommand3_4 = () => {
     const trimmedInput = input.trim();
     if (!trimmedInput) return;
 
-    addConversation(trimmedInput);
+    const detailWasShown = messages.some(
+      (message) => message.text === AI_RESPONSE_2,
+    );
+    if (detailWasShown) {
+      addConversation(trimmedInput, AI_RESPONSE_CONTACT, [], contact);
+    } else {
+      addConversation(trimmedInput);
+    }
     setInput("");
   };
 
@@ -171,46 +217,44 @@ const AICommand3_4 = () => {
                   )}
                   <div className={styles["message-content"]}>
                     <p>{message.text}</p>
-                    {message.sender === "ai" && (
-                      <div className={styles["deposit-list"]}>
-                        {message.detail?.map((product) => (
-                          <div
-                            className={styles["deposit-item"]}
-                            key={product.title}
-                          >
-                            {/* <span className="deposit-emoji" aria-hidden="true">
+                    {message.sender === "ai" &&
+                      Boolean(message.detail?.length) && (
+                        <div className={styles["deposit-list"]}>
+                          {message.detail?.map((product) => (
+                            <div
+                              className={styles["deposit-item"]}
+                              key={product.title}
+                            >
+                              {/* <span className="deposit-emoji" aria-hidden="true">
                                 {product.emoji}
                               </span> */}
-                            <div className={styles["deposit-details"]}>
-                              <strong style={{ fontSize: "16px" }}>
-                                {product.title}
-                              </strong>
-                              {product.tenor &&
-                                product.bunga &&
-                                product.cicilan && (
+                              <div className={styles["deposit-details"]}>
+                                <strong style={{ fontSize: "16px" }}>
+                                  {product.tenor}
+                                </strong>
+                                {product.bunga && product.cicilan && (
                                   <span
                                     style={{ fontSize: "14px" }}
                                     className={styles["deposit-meta"]}
                                   >
-                                    {product.tenor} | {product.bunga} |{" "}
-                                    {product.cicilan}
+                                    {product.bunga} | {product.cicilan}
                                   </span>
                                 )}
-                              <a
-                                href="#deposit-details"
-                                onClick={addConversationContact}
-                                className={styles["deposit-link"]}
-                              >
-                                Pilih{" "}
-                                <span style={{ fontSize: "16px" }}>
-                                  &#x203A;
-                                </span>
-                              </a>
+                                <a
+                                  href="#deposit-details"
+                                  onClick={addConversationContact}
+                                  className={styles["deposit-link"]}
+                                >
+                                  Detail{" "}
+                                  <span style={{ fontSize: "16px" }}>
+                                    &#x203A;
+                                  </span>
+                                </a>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          ))}
+                        </div>
+                      )}
                     {Boolean(message.contact?.length) && (
                       <div className={styles["contact-list"]}>
                         {message.contact?.map((person) => (
