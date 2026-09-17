@@ -22,7 +22,7 @@ const navItems = [
   { label: "Aktivitas", path: "/Feature3_2" },
   { label: "QRIS", path: "#" },
   { label: "Untukmu", path: "/Feature3_3" },
-  { label: "Akun Saya", path: "#" },
+  { label: "Akun Saya", path: "/Feature3_4" },
 ];
 
 const Feature3_1 = () => {

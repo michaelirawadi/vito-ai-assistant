@@ -25,24 +25,11 @@ const navItems = [
   { label: "Akun Saya", path: "/Feature3_4" },
 ];
 
-const Feature3_2 = () => {
+const Feature3_4 = () => {
   const navigate = useNavigate();
 
   return (
     <main className="mobile-shell">
-      <Link
-        className="push-notification"
-        to="/AI_Command3_3"
-        aria-label="Buka update keluhan COM-001"
-      >
-        <strong>Peluang Emas</strong>
-        <span>
-          Saldo rekening anda menganggur di atas Rp 10.000.000 selama 3 bulan
-          terakhir. Deposito dengan bunga 4,5% bisa menambah penghasilan pasif.
-          Tertarik? <b> Klik disini.</b>
-        </span>
-      </Link>
-
       <section className="hero-panel">
         <header className="topbar">
           <SkeletonLine className="brand-placeholder" />
@@ -105,7 +92,7 @@ const Feature3_2 = () => {
 
       <Link
         className="ai-fab"
-        to="/AI_Command3_2"
+        to="/AI_Command3_4"
         aria-label="Open AI assistant"
       >
         <span className="ai-fab-orbit" aria-hidden="true" />
@@ -135,4 +122,4 @@ const Feature3_2 = () => {
   );
 };
 
-export default Feature3_2;
+export default Feature3_4;

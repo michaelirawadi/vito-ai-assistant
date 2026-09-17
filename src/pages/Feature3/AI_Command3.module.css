@@ -416,6 +416,12 @@
   line-height: 1.25;
 }
 
+.deposit-meta {
+  color: #5d7185;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
 .deposit-details a {
   width: fit-content;
   color: #1988b5;
@@ -423,6 +429,55 @@
   line-height: 1.2;
   text-decoration: none;
   font-weight: bold;
+}
+
+.contact-list {
+  display: grid;
+  gap: 9px;
+  /* margin-top: 11px; */
+  /* padding-top: 10px; */
+  /* border-top: 1px solid #e4edf4; */
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.contact-details {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contact-details strong,
+.contact-details span {
+  color: #163b61;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.contact-details strong {
+  font-size: 13px;
+}
+
+.contact-link {
+  width: fit-content;
+  color: #1988b5;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
 }
 
 .message-avatar {
