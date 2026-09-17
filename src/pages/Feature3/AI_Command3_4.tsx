@@ -5,7 +5,7 @@ import styles from "./AI_Command3.module.css";
 const AI_RESPONSE = "Penawaran KPR rumah dengan nominal Rp 750.000.000.";
 const AI_RESPONSE_2 = `KPR Rumah - Penawaran A
 
-Wujudkan rumah impian Anda dengan fasilitas KPR dari [Nama Bank].
+Wujudkan rumah impian Anda dengan fasilitas KPR dari Bank BCA.
 
 Detail pembiayaan:
 - Harga rumah: Rp750.000.000
@@ -20,7 +20,7 @@ Estimasi biaya tambahan:
 - Administrasi: Rp500.000
 - Biaya asuransi dan biaya terkait lainnya mengikuti ketentuan yang berlaku.
 
-Penawaran ini merupakan simulasi dan belum merupakan persetujuan kredit. Besaran bunga, cicilan, biaya, serta persetujuan fasilitas KPR akan mengikuti hasil analisis dan ketentuan [Nama Bank].`;
+Penawaran ini merupakan simulasi dan belum merupakan persetujuan kredit. Besaran bunga, cicilan, biaya, serta persetujuan fasilitas KPR akan mengikuti hasil analisis dan ketentuan Bank BCA.`;
 const AI_RESPONSE_CONTACT =
   "Senang dapat membantu anda! Berikut kontak yang dapat membantu Anda lebih lanjut.";
 
